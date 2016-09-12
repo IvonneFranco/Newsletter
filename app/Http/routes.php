@@ -11,6 +11,28 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',['uses'=>'HomeController@index',
+    'as'=>'home']);
+
+Route::get('login',[
+    'uses'=>'UsuarioController@getLogin',
+    'as'=>'login']);
+
+Route::post('login','UsuarioController@postLogin');
+Route::get('auth/logout', 'UsuarioController@getLogout');
+
+Route::get('register',[
+    'uses'=>'UsuarioController@getRegister',
+    'as'=>'register']);
+Route::post('register','UsuarioController@store');
+
+
+
+ Route::group(['middleware'=>'crearRol:admin'],function(){
+     Route::get('cliente','Boletin_Controller@index');
+    });
+
+
+
+
+
